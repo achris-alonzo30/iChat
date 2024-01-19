@@ -1,3 +1,5 @@
+"use client";
+
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -19,7 +21,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none" asChild>
-                <button className="w-full text-md font-semibold px-3 flex items-cetner h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zainc-700/10 dark:hover:bg-zinc-700/50 transition">
+                <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
                     {server.name}
                     <ChevronDownIcon className="h-4 w-4 ml-auto" />
                 </button>
@@ -44,7 +46,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                         </DropdownMenuItem>
                     )}
                     {isModerator && (
-                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer" onClick={() => onOpen("createChannel", { server })}>
                             Create Channel
                             <PlusCircle className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
@@ -55,13 +57,13 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                         )
                     }
                     {isAdmin && (
-                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer text-rose-500">
+                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer text-rose-500" onClick={() => onOpen("deleteServer", { server })}>
                             Delete Server
                             <Trash className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
                     )}
                     {!isAdmin && (
-                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer text-rose-500">
+                        <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer text-rose-500" onClick={() => onOpen("leaveServer", { server })}>
                             Leave Server
                             <LogOut className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
